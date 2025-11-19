@@ -4,8 +4,57 @@
   box-sizing: border-box;
   scrollbar-width: none;
   font-family: "Arial", sans-serif;
+  scroll-behavior: smooth;
 }
 
+:root {
+  --primaryColor: #00d2ad;
+  --primaryColorDark: #1fc5a2;
+  --backGroundColor: #f8fafc;
+  --TopbarBackGroundColor: #ffffff;
+  --textColor: #1f2937;
+  --textColorMuted: #6b7280;
+  --tableHeadColor: #e5e7eb;
+  --borderColor: #d1d5db;
+  --borderColorFocus: #2fe6c5;
+  --cardColor: #ffffff;
+  --cardHoverColor: #f1f5f9;
+  --cardSubTitleColor: #6b7280;
+  --boxShadowColor: rgba(0, 0, 0, 0.08);
+  --scrollbarColor: #2fe6c5;
+  --inputBackground: #f3f4f6;
+  --inputPlaceholderColor: #9ca3af;
+  --successColor: #22c55e;
+  --warningColor: #f59e0b;
+  --errorColor: #ef4444;
+}
+
+[data-theme="dark"] {
+  --primaryColor: #2fe6c5;
+  --primaryColorDark: #1fc5a2;
+  --backGroundColor: #0f172a;
+  --TopbarBackGroundColor: #111827;
+  --textColor: #e2e8f0;
+  --textColorMuted: #94a3b8;
+  --tableHeadColor: #1e293b;
+  --borderColor: #334155;
+  --borderColorFocus: #2fe6c5;
+  --cardColor: #1e293b;
+  --cardHoverColor: #243447;
+  --cardSubTitleColor: #94a3b8;
+  --boxShadowColor: rgba(47, 230, 197, 0.15);
+  --scrollbarColor: #1fc5a2;
+  --inputBackground: #0f1a2f;
+  --inputPlaceholderColor: #64748b;
+  --successColor: #22c55e;
+  --warningColor: #eab308;
+  --errorColor: #ef4444;
+}
+
+.icon {
+  font-size: 0px;
+  cursor: pointer;
+}
 
 /* ------  toast ------ */
 [data-sonner-toast] {

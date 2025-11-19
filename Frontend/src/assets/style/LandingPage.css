@@ -1,0 +1,334 @@
+/* ==== Slider ===== */
+.landing-hero-container {
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  overflow: hidden;
+}
+
+.landing-hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.landing-hero-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.landing-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 46%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.landing-hero-content {
+  color: white;
+  max-width: 800px;
+  animation: fadeInUp 1s ease 0.2s;
+}
+
+.landing-hero-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+  color: var(--primaryColor);
+}
+
+.landing-hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.landing-hero-description {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: #e0e0e0;
+}
+
+
+.landing-page-cta {
+  position: relative;
+  overflow: hidden;
+  background: var(--backGroundColor);
+  color: var(--textColor);
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  transition: color 0.4s, transform 0.3s;
+  z-index: 0;
+}
+
+.landing-page-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--primaryColorDark);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.5s ease;
+  z-index: -1;
+  border-radius: 10px;
+}
+
+.landing-page-cta:hover::before {
+  transform: scaleY(1);
+}
+
+.landing-page-cta:hover {
+  color: var(--backGroundColor);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Landing Page Sections ===== */
+.landing-page-section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--textColor);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.landing-page-features-section {
+  background: var(--backGroundColor);
+  padding: 5rem 2rem;
+}
+
+.landing-page-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.landing-page-feature-card {
+  background: var(--cardColor);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--boxShadowColor);
+  transition: transform 0.3s, background 0.3s;
+  cursor: pointer;
+}
+
+.landing-page-feature-card:hover {
+  transform: translateY(-6px);
+  background: var(--cardHoverColor);
+}
+
+.landing-page-feature-icon {
+  font-size: 2rem;
+  color: var(--primaryColor);
+  margin-bottom: 1rem;
+}
+
+.landing-page-feature-title {
+  font-size: 1.3rem;
+  color: var(--textColor);
+  margin-bottom: 0.5rem;
+}
+
+.landing-page-feature-text {
+  color: var(--textColorMuted);
+  font-size: 0.95rem;
+}
+
+.landing-page-workflow-section {
+  background: var(--backGroundColor);
+  padding: 5rem 2rem;
+}
+
+.landing-page-workflow-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.workflow-step {
+  background: var(--cardColor);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  flex: 1 1 250px;
+  box-shadow: 0 4px 12px var(--boxShadowColor);
+}
+
+.step-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cardColor);
+  width: fit-content;
+  padding: 9px 19px;
+  border-radius: 50%;
+  margin: 0px auto;
+  margin-bottom: 1rem;
+  background: var(--borderColorFocus);
+}
+
+.workflow-step > h4 {
+  color: var(--textColor);
+}
+.workflow-step > p {
+  color: var(--textColorMuted);
+}
+
+.landing-page-why-section {
+  background: var(--backGroundColor);
+  padding: 5rem 2rem;
+}
+
+.landing-page-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.landing-page-why-card {
+  background: var(--cardColor);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--boxShadowColor);
+}
+
+.landing-page-why-card h3 {
+  color: var(--primaryColor);
+  margin-bottom: 0.5rem;
+}
+
+.landing-page-why-card p {
+  color: var(--textColorMuted);
+  font-size: 0.95rem;
+}
+
+.landing-page-tools-section {
+  background: var(--backGroundColor);
+  padding: 5rem 2rem;
+}
+
+.landing-page-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.landing-page-tool-card {
+  background: var(--cardColor);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--boxShadowColor);
+}
+
+.landing-page-tool-title {
+  color: var(--primaryColor);
+  margin-bottom: 0.5rem;
+}
+
+.landing-page-tool-text {
+  color: var(--textColorMuted);
+  font-size: 0.95rem;
+}
+
+.landing-page-testimonial-section {
+  background: var(--backGroundColor);
+  padding: 5rem 2rem;
+}
+
+.landing-page-testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background: var(--cardColor);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--boxShadowColor);
+  text-align: center;
+  color: var(--textColor);
+  font-style: italic;
+}
+
+.testimonial-card h4 {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: var(--primaryColor);
+}
+
+.landing-page-faq-section {
+  background: var(--backGroundColor);
+  padding: 5rem 2rem;
+}
+
+.faq-item {
+  background: var(--cardColor);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px var(--boxShadowColor);
+}
+
+.faq-item h4 {
+  color: var(--primaryColor);
+  margin-bottom: 0.5rem;
+}
+
+.faq-item p {
+  color: var(--textColorMuted);
+}
+
+.landing-page-about-section {
+  background: var(--backGroundColor);
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.landing-page-about-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primaryColor);
+  margin-bottom: 1rem;
+}
+
+.landing-page-about-text {
+  font-size: 1rem;
+  color: var(--textColorMuted);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.landing-page-footer {
+  background: var(--TopbarBackGroundColor);
+  padding: 2rem;
+  text-align: center;
+}
+
+.landing-page-footer-text {
+  color: var(--textColorMuted);
+  font-size: 0.9rem;
+}
