@@ -23,11 +23,52 @@
   cursor: pointer;
 }
 
-.topbar-left:hover {
+.topbar-left-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 6px;
+  color: var(--primaryColor);
+  border: 1px solid var(--borderColor);
+  background: var(--backGroundColor);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.topbar-left-back-btn:hover {
   border: 1px solid var(--primaryColor);
 }
 
-.topbar-left .topbar-title {
+.topbar-left-back-btn > .icon {
+  transition: all 0.3s ease-in-out;
+}
+
+.topbar-left-back-btn:hover span.icon {
+  transform: translateX(-3px);
+}
+.topbar-menu-btn:hover span.icon {
+  transform: scale(1.1);
+}
+
+.topbar-left-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: fit-content;
+  border: 1px solid var(--borderColor);
+  padding: 7px;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.topbar-left-btn:hover {
+  border: 1px solid var(--primaryColor);
+}
+
+.topbar-left-btn .topbar-title {
   font-size: 1.5rem;
   font-weight: 700;
   white-space: nowrap;
@@ -92,20 +133,178 @@
   transition: transform 0.12s ease;
 }
 
-.icon-btn:hover{
-    transform: translateY(-2px);
+.icon-btn:hover {
+  transform: translateY(-2px);
 }
 
-@media (max-width: 768px) {
+.topbar-login-btn {
+  padding: 4px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--primaryColor);
+  background: var(--backGroundColor);
+  border: 1px solid var(--borderColor);
+  transition: all 0.3s ease-in-out;
+}
+
+.topbar-login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: -2px 2px 0px var(--primaryColorDark);
+}
+
+.topbar-user-btn {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--borderColorFocus);
+  overflow: hidden;
+}
+
+.topbar-user-btn > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.topbar-user-btn > img:hover {
+  transform: scale(1.1);
+}
+
+/* ====== Mobile Sidebar ====== */
+
+.topbar-menu-btn {
+  display: none;
+}
+
+.sidebar-darkmode-btn {
+  display: none;
+}
+
+.mobile-sidebar-container {
+  display: none;
+  width: 260px;
+  height: 100vh;
+  background: var(--cardColor);
+  flex-direction: column;
+  padding: 24px 18px;
+  box-shadow: 3px 0 20px rgba(0, 0, 0, 0.12);
+  position: fixed;
+  top: 0;
+  z-index: 2000;
+  overflow: hidden auto;
+  transition: all 0.35s ease;
+}
+
+.mobile-sidebar-container.sidebarClose {
+  left: -260px;
+}
+
+.mobile-sidebar-container.sidebarOpen {
+  left: 0px;
+}
+
+.mobile-sidebar-header {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+.mobile-sidebar-logo {
+  width: 55px;
+  height: auto;
+}
+
+.mobile-sidebar-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primaryColor);
+}
+
+.mobile-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  gap: 40px;
+  padding: 0px 14px;
+}
+
+.mobile-sidebar-link {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--textColor);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background 0.2s ease, color 0.2s ease;
+  position: relative;
+  width: fit-content;
+}
+
+.mobile-sidebar-link.activeLink{
+  color: var(--primaryColor);
+}
+
+.mobile-sidebar-link:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.mobile-sidebar-link::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 0%;
+  background: var(--primaryColor);
+  transition: width 0.3s;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+}
+.mobile-sidebar-link.activeLink::after {
+  width: 100%;
+}
+
+/* ====== Responsive ====== */
+
+@media (max-width: 960px) {
   .topbar-container {
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 1rem 2rem;
+    gap: 0.4rem;
+    padding: clamp(0.5rem, 1.5vw, 2rem);
   }
 
   .topbar-right .topbar-nav {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
+    display: none;
+  }
+
+  .topbar-menu-btn {
+    display: flex;
+  }
+
+  .mobile-sidebar-container {
+    display: flex;
+  }
+
+  .topbar-logo {
+    height: clamp(20px, 1.5vw, 40px);
+    width: clamp(20px, 1.5vw, 40px);
+  }
+
+  .topbar-left-btn .topbar-title {
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+  }
+}
+
+@media (max-width: 375px) {
+  .topbar-right > .icon-btn {
+    display: none;
+  }
+  .sidebar-darkmode-btn {
+    display: flex;
+  }
+
+  .right-side-container {
+    padding: 8px;
   }
 }

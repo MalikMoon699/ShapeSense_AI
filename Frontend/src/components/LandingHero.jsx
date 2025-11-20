@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { landingHeroSlides } from "../services/Constants";
+import { useOutletContext } from "react-router";
 
 const LandingHero = ({ ButtonClick }) => {
   const [current, setCurrent] = useState(0);

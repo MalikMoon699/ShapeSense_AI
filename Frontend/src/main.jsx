@@ -3,18 +3,20 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "sonner";
 import App from "./App";
+import { AuthProvider } from "./context/AuthContext";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
+    <AuthProvider>
       <App />
       <Toaster
         richColors
         position="bottom-right"
-        // closeButton
         dismissible
         toastOptions={{
           duration: 4000,
         }}
       />
+    </AuthProvider>
   </BrowserRouter>
 );

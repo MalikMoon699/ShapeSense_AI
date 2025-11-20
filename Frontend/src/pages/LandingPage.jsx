@@ -1,21 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/style/LandingPage.css";
-import { Dumbbell, HeartPulse, Apple, Brain, Sparkles } from "lucide-react";
-import { useNavigate } from "react-router";
+import { Dumbbell, HeartPulse, Apple, Brain } from "lucide-react";
+import { useNavigate, useOutletContext } from "react-router";
 import LandingHero from "../components/LandingHero";
+import { useAuth } from "../context/AuthContext";
+import { userType } from "../services/Helpers";
+import { sectionList } from "../services/Constants";
+import { toast } from "sonner";
 
 const LandingPage = () => {
-  const [isStarted, setIsStarted] = useState(false);
+  const { currentUser } = useAuth();
+  const { setAcountState, setCurrentSection } = useOutletContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.4,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          window.history.replaceState(null, "", `#${id}`);
+          setCurrentSection(id);
+        }
+      });
+    }, options);
+    sectionList.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="landing-page-container">
-      <LandingHero
-        ButtonClick={() => {
-          setIsStarted(true);
-        }}
-      />
-
+      <section id="hero">
+        <LandingHero
+          ButtonClick={() => {
+            const type = userType(currentUser);
+            if (type === "noUser") {
+              setAcountState("login");
+            } else if (type === "notVerified") {
+              navigate(`/user-details/${currentUser._id}`);
+            } else if (type === "verified") {
+              navigate(`/dashboard/${currentUser._id}`);
+            } else {
+              return toast.error(
+                "User type undetermined. Please log in again."
+              );
+            }
+          }}
+        />
+      </section>
       <section id="features" className="landing-page-features-section">
         <h2 className="landing-page-section-title">Core Fitness Features</h2>
 
