@@ -5,10 +5,14 @@ import AppLayout from "./layout/AppLayout.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import UserDetails from "./auth/UserDetails.jsx";
 import DashBoard from "./pages/DashBoard.jsx";
+import Schedule from "./pages/Schedule.jsx";
+import Achievements from "./pages/Achievements.jsx";
+import WorkoutPlan from "./pages/WorkoutPlan.jsx";
+import Chatbot from "./pages/chatbot.jsx";
 import { ProtectedRoute } from "./routes/ProtectedRoute.jsx";
+import UserLayout from "./layout/UserLayout.jsx";
 
 const App = () => {
-
   return (
     <>
       <Routes>
@@ -31,6 +35,9 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+        <Route element={<UserLayout />}>
           <Route
             path="/dashboard/:id"
             element={
@@ -39,7 +46,39 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route
+            path="/schedule/:id"
+            element={
+              <ProtectedRoute allowedTypes={["verified"]}>
+                <Schedule />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/achievements/:id"
+            element={
+              <ProtectedRoute allowedTypes={["verified"]}>
+                <Achievements />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/workout-plan/:id"
+            element={
+              <ProtectedRoute allowedTypes={["verified"]}>
+                <WorkoutPlan />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/chatbot"
+            element={
+              <ProtectedRoute allowedTypes={["verified"]}>
+                <Chatbot />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/dashboard/:id" replace />} />
         </Route>
       </Routes>
     </>

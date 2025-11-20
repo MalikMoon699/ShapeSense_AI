@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
     gender: String,
     goal: String,
     activityLevel: String,
-    varified: { type: Boolean, default: false },
+    varified: { type: Boolean, default: false, },
   },
   { timestamps: true }
 );

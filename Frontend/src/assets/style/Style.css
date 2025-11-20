@@ -51,7 +51,7 @@
   --errorColor: #ef4444;
 }
 
-body{
+body {
   background-color: var(--backGroundColor);
   color: var(--textColor);
 }
@@ -61,7 +61,7 @@ body{
   cursor: pointer;
 }
 
-.loaderWrapper{
+.loaderWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,6 +125,13 @@ body{
   font-size: 1.4rem;
 }
 
+/* ------  layouts ------ */
+
+.users-main-container {
+  margin-left: 260px;
+  background: var(--backGroundColor);
+  font-family: "Inter", sans-serif;
+}
 
 /* ------  toast ------ */
 [data-sonner-toast] {

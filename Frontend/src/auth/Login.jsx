@@ -91,6 +91,7 @@ const Login = ({ setAcountState }) => {
 
         <div className="login-password-collection">
           <input
+            style={{ boxShadow: "none" }}
             name="password"
             type={!showPassword ? "password" : "text"}
             placeholder="Password"

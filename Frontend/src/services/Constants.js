@@ -3,6 +3,8 @@ import slideImage1 from "../assets/images/slideImage1.png";
 import slideImage2 from "../assets/images/slideImage2.jpeg";
 import slideImage3 from "../assets/images/slideImage3.png";
 import PlaceHolder from "../assets/images/PlaceHolder.jpg";
+import FemaleLabel from "../assets/images/FemaleLabel.png";
+
 
 export const IMAGES = {
   siteLogo,
@@ -10,6 +12,7 @@ export const IMAGES = {
   slideImage2,
   slideImage3,
   PlaceHolder,
+  FemaleLabel,
 };
 
 export const landingHeroSlides = [

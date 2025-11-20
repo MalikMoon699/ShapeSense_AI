@@ -12,7 +12,6 @@ import { Readable } from "stream";
 const storage = multer.memoryStorage();
 export const uploadProfileImage = multer({ storage }).single("profileImg");
 
-
 const uploadFromBuffer = (fileBuffer) => {
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
@@ -111,13 +110,21 @@ export const updateUserData = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { name, email, age, height, weight, gender, goal, activityLevel } =
-      req.body;
+    const {
+      name,
+      email,
+      age,
+      height,
+      weight,
+      gender,
+      goal,
+      activityLevel,
+      varified,
+    } = req.body;
 
     const user = await User.findById(id);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    // Upload profile image (if exists)
     if (req.file) {
       try {
         const uploadResult = await uploadFromBuffer(req.file.buffer);
@@ -131,7 +138,6 @@ export const updateUserData = async (req, res) => {
       }
     }
 
-    // Update all fields except password
     if (name) user.name = name;
 
     if (email && email !== user.email) {
@@ -148,9 +154,7 @@ export const updateUserData = async (req, res) => {
     if (gender) user.gender = gender;
     if (goal) user.goal = goal;
     if (activityLevel) user.activityLevel = activityLevel;
-
-    // Mark as verified after user completes details
-    user.varified = true;
+    if (varified) user.varified = varified;
 
     await user.save();
 
