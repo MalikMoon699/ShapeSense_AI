@@ -63,7 +63,6 @@ const LandingPage = () => {
         <div className="landing-page-features-grid">
           <div
             className="landing-page-feature-card"
-            onClick={() => navigate("/workout-generator")}
           >
             <div className="landing-page-feature-icon">
               <Dumbbell />
@@ -77,7 +76,6 @@ const LandingPage = () => {
 
           <div
             className="landing-page-feature-card"
-            onClick={() => navigate("/diet-planner")}
           >
             <div className="landing-page-feature-icon">
               <Apple />
@@ -90,7 +88,6 @@ const LandingPage = () => {
 
           <div
             className="landing-page-feature-card"
-            onClick={() => navigate("/progress-tracker")}
           >
             <div className="landing-page-feature-icon">
               <HeartPulse />
@@ -103,7 +100,6 @@ const LandingPage = () => {
 
           <div
             className="landing-page-feature-card"
-            onClick={() => navigate("/ai-coach")}
           >
             <div className="landing-page-feature-icon">
               <Brain />

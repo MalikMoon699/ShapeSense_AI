@@ -129,7 +129,6 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px var(--boxShadowColor);
   transition: transform 0.3s, background 0.3s;
-  cursor: pointer;
 }
 
 .landing-page-feature-card:hover {
@@ -324,11 +323,12 @@
 
 .landing-page-footer {
   background: var(--TopbarBackGroundColor);
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
+  border-top: 1px solid var(--borderColor);
 }
 
 .landing-page-footer-text {
-  color: var(--textColorMuted);
+  color: var(--primaryColor);
   font-size: 0.9rem;
 }

@@ -46,85 +46,126 @@ const TopBar = ({ darkMode, setDarkMode, setAcountState, currentSection }) => {
 
   return (
     <>
-      <div className="topbar-container">
-        <div className="topbar-left">
-          {!isLandingPage && (
+      {isLandingPage ? (
+        <div className="topbar-container">
+          <div className="topbar-left">
+            <div
+              className="topbar-left-btn"
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              <img className="topbar-logo" src={IMAGES.siteLogo} alt="" />
+              <h1 className="topbar-title">ShapeSense AI</h1>
+            </div>
+          </div>
+          <div className="topbar-right">
+            <nav className="topbar-nav">
+              {sectionList.slice(1).map((section, index) => (
+                <a
+                  key={index}
+                  href={`#${section}`}
+                  className={`topbar-link mobile-sidebar-link ${
+                    currentSection === section ? "activeLink" : ""
+                  }`}
+                >
+                  {section}
+                </a>
+              ))}
+            </nav>
+            <span
+              onClick={() => {
+                setDarkMode(!darkMode);
+              }}
+              className="icon icon-btn"
+            >
+              {darkMode ? <Sun /> : <Moon />}
+            </span>
+            {usersType === "noUser" ? (
+              <button
+                onClick={() => {
+                  setAcountState("login");
+                }}
+                className="topbar-login-btn"
+              >
+                Login
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  navigate(`/user-details/${currentUser?._id}`);
+                }}
+                className="topbar-user-btn"
+              >
+                <img
+                  src={currentUser?.profileImg || IMAGES.PlaceHolder}
+                  alt=""
+                />
+              </button>
+            )}
+            <button
+              onClick={() => setIsSidebar(true)}
+              className="topbar-left-back-btn topbar-menu-btn"
+            >
+              <span className="icon">
+                <Menu />
+              </span>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="topbar-container">
+          <div className="topbar-left">
             <button onClick={goBack} className="topbar-left-back-btn">
               <span className="icon">
                 <ChevronLeft />
               </span>
             </button>
-          )}
-          <div
-            className="topbar-left-btn"
-            onClick={() => {
-              if (isLandingPage) {
-                navigate("/");
+            <div
+              className="topbar-left-btn"
+              onClick={() => {
                 window.location.reload();
-                window.history.scrollRestoration = "manual";
-                setTimeout(() => {
-                  window.scrollTo(0, 0);
-                }, 300);
-              } else {
-                window.location.reload();
-              }
-            }}
-          >
-            <img className="topbar-logo" src={IMAGES.siteLogo} alt="" />
-            <h1 className="topbar-title">ShapeSense AI</h1>
+              }}
+            >
+              <img className="topbar-logo" src={IMAGES.siteLogo} alt="" />
+              <h1 className="topbar-title">ShapeSense AI</h1>
+            </div>
+          </div>
+          <div className="topbar-right">
+            <span
+              onClick={() => {
+                setDarkMode(!darkMode);
+              }}
+              className="icon icon-btn"
+              style={{display:"flex"}}
+            >
+              {darkMode ? <Sun /> : <Moon />}
+            </span>
+            {usersType === "noUser" ? (
+              <button
+                onClick={() => {
+                  setAcountState("login");
+                }}
+                className="topbar-login-btn"
+              >
+                Login
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  navigate(`/user-details/${currentUser?._id}`);
+                }}
+                className="topbar-user-btn"
+              >
+                <img
+                  src={currentUser?.profileImg || IMAGES.PlaceHolder}
+                  alt=""
+                />
+              </button>
+            )}
           </div>
         </div>
-        <div className="topbar-right">
-          <nav className="topbar-nav">
-            {sectionList.slice(1).map((section, index) => (
-              <a
-                key={index}
-                href={`#${section}`}
-                className={`topbar-link mobile-sidebar-link ${
-                  currentSection === section ? "activeLink" : ""
-                }`}
-              >
-                {section}
-              </a>
-            ))}
-          </nav>
-          <span
-            onClick={() => {
-              setDarkMode(!darkMode);
-            }}
-            className="icon icon-btn"
-          >
-            {darkMode ? <Sun /> : <Moon />}
-          </span>
-          {usersType === "noUser" ? (
-            <button
-              onClick={() => {
-                setAcountState("login");
-              }}
-              className="topbar-login-btn"
-            >
-              Login
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                navigate(`/user-details/${currentUser?._id}`);
-              }}
-              className="topbar-user-btn"
-            >
-              <img src={currentUser?.profileImg || IMAGES.PlaceHolder} alt="" />
-            </button>
-          )}
-          <button
-            onClick={() => setIsSidebar(true)}
-            className="topbar-left-back-btn topbar-menu-btn"
-          >
-            <span className="icon">
-              <Menu />
-            </span>
-          </button>
-        </div>
-      </div>
+      )}
       <div
         className={`mobile-sidebar-container ${
           isSidebar ? "sidebarOpen" : "sidebarClose"
