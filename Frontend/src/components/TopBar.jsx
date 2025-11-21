@@ -46,6 +46,7 @@ const TopBar = ({ darkMode, setDarkMode, setAcountState, currentSection }) => {
 
   return (
     <>
+      <h2>{window.innerWidth || 0}</h2>
       {isLandingPage ? (
         <div className="topbar-container">
           <div className="topbar-left">
@@ -137,7 +138,7 @@ const TopBar = ({ darkMode, setDarkMode, setAcountState, currentSection }) => {
                 setDarkMode(!darkMode);
               }}
               className="icon icon-btn"
-              style={{display:"flex"}}
+              style={{ display: "flex" }}
             >
               {darkMode ? <Sun /> : <Moon />}
             </span>
