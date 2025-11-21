@@ -8,7 +8,7 @@ import DashBoard from "./pages/DashBoard.jsx";
 import Schedule from "./pages/Schedule.jsx";
 import Achievements from "./pages/Achievements.jsx";
 import WorkoutPlan from "./pages/WorkoutPlan.jsx";
-import Chatbot from "./pages/chatbot.jsx";
+import Chatbot from "./pages/Chatbot.jsx";
 import { ProtectedRoute } from "./routes/ProtectedRoute.jsx";
 import UserLayout from "./layout/UserLayout.jsx";
 
