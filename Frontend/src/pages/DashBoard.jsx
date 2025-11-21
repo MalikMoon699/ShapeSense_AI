@@ -3,7 +3,7 @@ import API from "../utils/api";
 import { toast } from "sonner";
 import { IMAGES } from "../services/Constants";
 import { useAuth } from "../context/AuthContext";
-import "../assets/style/Dashboard.css";
+import "../assets/style/DashBoard.css";
 import { FormatResponse } from "../components/FormatResponse";
 import {
   activityData,
