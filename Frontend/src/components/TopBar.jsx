@@ -46,7 +46,6 @@ const TopBar = ({ darkMode, setDarkMode, setAcountState, currentSection }) => {
 
   return (
     <>
-      <h2>{window.innerWidth || 0}</h2>
       {isLandingPage ? (
         <div className="topbar-container">
           <div className="topbar-left">
