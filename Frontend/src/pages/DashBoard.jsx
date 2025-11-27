@@ -8,29 +8,19 @@ import { FormatResponse } from "../components/FormatResponse";
 import {
   activityData,
   goalsData,
-  heartBaetStatus,
   monthlyProgressData,
   myScheduleData,
   PeriodZone,
 } from "../services/DashboardServices";
+import { fetchPlans } from "../services/Helpers";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
-    fetchPlans();
+    fetchPlans(setPlans);
   }, []);
-
-  const fetchPlans = async () => {
-    try {
-      const res = await API.get("/plan/get-plans");
-      setPlans(res?.data?.plans || []);
-    } catch (error) {
-      console.error("Error fetching plans:", error);
-      toast.error("Failed to fetch plans");
-    }
-  };
 
   return (
     <div className="dashboard-main-container">
@@ -39,33 +29,31 @@ const Dashboard = () => {
           <h1 className="dashboard-title">Good {PeriodZone()} 🎉</h1>
           <div className="dashboard-user-stats">
             <div className="dashboard-stat-box">
+              <strong className="dashboard-stat-label">Weight:</strong>
               <span className="dashboard-stat-number">
                 {currentUser?.weight}kg
               </span>
-              <span className="dashboard-stat-label">Weight</span>
             </div>
             <div className="dashboard-stat-box">
+              <strong className="dashboard-stat-label">Height:</strong>
               <span className="dashboard-stat-number">
                 {currentUser?.height}cm
               </span>
-              <span className="dashboard-stat-label">Height</span>
             </div>
             <div className="dashboard-stat-box">
+              <strong className="dashboard-stat-label">Age:</strong>
               <span className="dashboard-stat-number">
                 {currentUser?.age}yrs
               </span>
-              <span className="dashboard-stat-label">Age</span>
             </div>
           </div>
         </div>
 
-        <div className="dashboard-heartbeat">
-          <span className="dashboard-heartbeat-title">Heart Beat</span>
-          <span className="dashboard-heartbeat-value">{heartBaetStatus()}</span>
-          <div className="dashboard-heartbeat-wave"></div>
-          <span className="dashboard-heartbeat-status">Normal</span>
-        </div>
-        <div className="dashboard-image">
+        <div
+          className={`dashboard-image ${
+            currentUser?.gender === "male" ? "male" : "female"
+          }`}
+        >
           <img
             src={
               currentUser?.gender === "male"
@@ -78,7 +66,6 @@ const Dashboard = () => {
       </header>
 
       <main className="dashboard-grid">
-        {/* Activity */}
         <div className="card activity-card">
           <h3 className="card-title">Activity</h3>
           <div className="activity-bars">
@@ -112,7 +99,7 @@ const Dashboard = () => {
         {/* Goals */}
         <div className="card goals-card">
           <div className="card-header">
-            <h3 className="card-title">Goals</h3>
+            <h3 className="card-title-2">Goals</h3>
             <span className="view-all">View All</span>
           </div>
 
@@ -130,7 +117,7 @@ const Dashboard = () => {
         {/* Schedule */}
         <div className="card schedule-card">
           <div className="card-header">
-            <h3 className="card-title">My Schedule</h3>
+            <h3 className="card-title-2">My Schedule</h3>
             <span className="view-all">View All</span>
           </div>
 

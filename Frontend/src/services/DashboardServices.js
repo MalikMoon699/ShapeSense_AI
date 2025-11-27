@@ -12,10 +12,6 @@ export const PeriodZone = () => {
   }
 };
 
-export const heartBaetStatus = () => {
-  5000 + Math.floor(Math.random() * 1000);
-};
-
 export const activityData = [
   { day: "Mon", value: 300 },
   { day: "Tue", value: 450 },

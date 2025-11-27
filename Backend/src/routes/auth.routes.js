@@ -5,7 +5,8 @@ import {
   login,
   getUserData,
   updateUserData,
-  uploadProfileImage
+  uploadProfileImage,
+  updatePlanDate,
 } from "../controllers/auth.controller.js";
 import { verifyToken } from "../middlewares/auth.middleware.js";
 
@@ -15,5 +16,6 @@ router.post("/register", signUp);
 router.post("/login", login);
 router.get("/user", verifyToken, getUserData);
 router.put("/updateUser/:id", verifyToken, uploadProfileImage, updateUserData);
+router.put("/update-plan-date/:id", verifyToken, updatePlanDate);
 
 export default router;

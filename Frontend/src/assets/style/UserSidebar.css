@@ -125,7 +125,7 @@
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  color: var(--textColor);
+  color: var(--cardColor);
   background-color: var(--errorColor);
   width: 110px;
   padding: 8px;

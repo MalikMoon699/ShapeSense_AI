@@ -64,3 +64,46 @@ export const FormatResponse = ({ text }) => {
     </div>
   );
 };
+
+export const parseDietPlan = (planText) => {
+  const sections = {};
+  const lines = planText.split(
+    /\n|(?=Breakfast|Snack 1|Snack 2|Lunch|Dinner)/g
+  );
+
+  let currentSection = "";
+
+  lines.forEach((line) => {
+    line = line.trim();
+    if (!line) return;
+
+    const calorieMatch = line.match(/Total Daily Calories:\s*(\d+)/i);
+    if (calorieMatch) {
+      return;
+    }
+
+    if (line.startsWith("At the end")) {
+      return;
+    }
+
+    if (
+      line.startsWith("Breakfast") ||
+      line.startsWith("Snack 1") ||
+      line.startsWith("Snack 2") ||
+      line.startsWith("Lunch") ||
+      line.startsWith("Dinner")
+    ) {
+      currentSection = line;
+      sections[currentSection] = [];
+    } else if (currentSection) {
+      sections[currentSection].push(line);
+    }
+  });
+
+  return sections;
+};
+
+export const getTotalCalories = (text) => {
+  const match = text.match(/Total Daily Calories:\s*(\d+)/i);
+  return match ? match[1] : null;
+};

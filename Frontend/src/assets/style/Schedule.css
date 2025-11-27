@@ -1,0 +1,80 @@
+.schedule-container {
+  padding: 20px;
+  background: var(--backGroundColor);
+  min-height: 100vh;
+}
+
+.schedule-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 15px 40px 15px;
+}
+
+.schedule-header-title {
+  color: var(--primaryColor);
+  font-size: 25px;
+}
+.schedule-header-cal {
+  background: var(--cardColor);
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.schedule-header-cal:hover {
+  border-top: 3px solid var(--primaryColor);
+}
+
+.schedule-header-cal > strong {
+  color: var(--primaryColor);
+}
+
+.schedule-section {
+  background: var(--cardColor);
+  border: 1px solid var(--borderColor);
+  box-shadow: 0 4px 12px var(--boxShadowColor);
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 25px;
+  transition: 0.3s ease;
+}
+
+.schedule-section:hover {
+  background: var(--cardHoverColor);
+}
+
+.schedule-plan-card {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--borderColor);
+}
+
+.schedule-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primaryColor);
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+
+.schedule-food-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.schedule-food-item {
+  padding: 10px 14px;
+  background: var(--inputBackground);
+  border-radius: 10px;
+  font-size: 15px;
+  border: 1px solid var(--borderColor);
+  color: var(--textColor);
+  transition: 0.2s ease-in-out;
+}
+
+.schedule-food-item:hover {
+  border-left: 5px solid var(--primaryColor);
+}

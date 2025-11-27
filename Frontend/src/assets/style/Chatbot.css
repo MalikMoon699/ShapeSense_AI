@@ -69,7 +69,7 @@
   height: 38px;
   width: 60px;
   background: var(--primaryColorDark);
-  color: var(--textColor);
+  color: var(--cardColor);
   border: none;
   border-radius: 10px;
   cursor: pointer;

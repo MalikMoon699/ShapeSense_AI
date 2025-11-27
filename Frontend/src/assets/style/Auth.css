@@ -73,9 +73,9 @@
 
 .login-btn {
   width: 100%;
-  background: linear-gradient(135deg, #007bff, #0056d2);
+  background: var(--primaryColorDark);
   border: none;
-  color: #fff;
+  color: var(--textColor);
   font-weight: 600;
   font-size: 1rem;
   padding: 0.75rem;
@@ -85,7 +85,7 @@
 }
 
 .login-btn:hover {
-  background: linear-gradient(135deg, #3399ff, #0066cc);
+  background: var(--primaryColor);
 }
 
 .signup {

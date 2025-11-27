@@ -179,3 +179,31 @@ export const updateUserData = async (req, res) => {
     res.status(500).json({ message: "Failed to update user data" });
   }
 };
+
+export const updatePlanDate = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { lastPlanUpdateAt } = req.body;
+
+    if (!lastPlanUpdateAt) {
+      return res.status(400).json({ message: "Date is required" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        lastPlanUpdateAt,
+        $inc: { dietDay: 1 },
+      },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Plan update date saved",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.log("Error updating plan date:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

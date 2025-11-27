@@ -12,7 +12,9 @@ const userSchema = new mongoose.Schema(
     gender: String,
     goal: String,
     activityLevel: String,
-    varified: { type: Boolean, default: false, },
+    lastPlanUpdateAt: String,
+    dietDay: { type: Number, default: 1 },
+    varified: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

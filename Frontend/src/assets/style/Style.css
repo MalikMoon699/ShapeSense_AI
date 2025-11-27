@@ -51,6 +51,10 @@
   --errorColor: #ef4444;
 }
 
+:disabled {
+  cursor: not-allowed !important;
+}
+
 body {
   background-color: var(--backGroundColor);
   color: var(--textColor);
