@@ -61,6 +61,7 @@ const UpdateDiet = ({ onClose, ReFetch }) => {
     height: currentUser?.height,
     weight: currentUser?.weight,
     gender: currentUser?.gender,
+    dietDay: currentUser?.dietDay,
     goal: currentUser?.goal,
     activityLevel: currentUser?.activityLevel,
   };

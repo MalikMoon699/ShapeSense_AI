@@ -87,22 +87,6 @@ const UserSidebar = ({ setDarkMode, darkMode }) => {
 
           <li
             className={`user-sidebar-item ${
-              isActiveRoute(`/achievements`) ? "active" : ""
-            }`}
-            onClick={() => {
-              navigate(`/achievements/${currentUser?._id}`);
-            }}
-          >
-            <span className="user-sidebar-icon">
-              <span className="user-sidebar-icon icon">
-                <Trophy />
-              </span>
-            </span>
-            Achievements
-          </li>
-
-          <li
-            className={`user-sidebar-item ${
               isActiveRoute(`/workout-plan`) ? "active" : ""
             }`}
             onClick={() => {
@@ -115,6 +99,21 @@ const UserSidebar = ({ setDarkMode, darkMode }) => {
               </span>
             </span>
             Workout Plan
+          </li>
+          <li
+            className={`user-sidebar-item ${
+              isActiveRoute(`/achievements`) ? "active" : ""
+            }`}
+            onClick={() => {
+              navigate(`/achievements/${currentUser?._id}`);
+            }}
+          >
+            <span className="user-sidebar-icon">
+              <span className="user-sidebar-icon icon">
+                <Trophy />
+              </span>
+            </span>
+            Achievements
           </li>
           <li
             className={`user-sidebar-item ${

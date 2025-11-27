@@ -113,6 +113,7 @@ const AddUserDetailsLeftSide = ({
     height: userData?.height,
     weight: userData?.weight,
     gender: userData?.gender,
+    dietDay: currentUser?.dietDay || 1,
     goal: userData?.goal,
     activityLevel: userData?.activityLevel,
   };
