@@ -23,6 +23,7 @@ import chatRoutes from "./routes/chat.routes.js";
 import connectToDB from "./database/mongodb.js";
 
 const app = express();
+connectToDB();
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -37,24 +38,9 @@ app.use("/api/workout", workoutRoutes);
 app.use("/api/achievement", achievementRoutes);
 app.use("/api/chatBot", chatRoutes);
 
-// app.get("/", (req, res) => {
-//   res.send(
-//     "Welcome to the Server API"
-//   );
-// });
-
 app.get("/", (req, res) => {
   res.send(
-    `Welcome to the Server API
-    NODE_ENV ---> ${process.env.NODE_ENV}
-    DB_URI ---> ${process.env.DB_URI}
-    JWT_SECRET ---> ${process.env.JWT_SECRET}
-    EMAIL_HOST ---> ${process.env.EMAIL_HOST}
-    EMAIL_PORT ---> ${process.env.EMAIL_PORT}
-    EMAIL_USER ---> ${process.env.EMAIL_USER}
-    EMAIL_PASS ---> ${process.env.EMAIL_PASS}
-    ADMIN_EMAIL ---> ${process.env.ADMIN_EMAIL}
-    GEMINI_API ---> ${process.env.GEMINI_API}`
+    "Welcome to the Server API"
   );
 });
 
