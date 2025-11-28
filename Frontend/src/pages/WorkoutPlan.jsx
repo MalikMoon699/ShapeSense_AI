@@ -16,7 +16,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 const WorkoutPlan = () => {
   const { currentUser } = useAuth();
   const [workouts, setWorkouts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [genrateLoading, setGenrateLoading] = useState(false);
   const [expandedDays, setExpandedDays] = useState({});
   const [expandedSections, setExpandedSections] = useState({});
@@ -146,7 +146,7 @@ const WorkoutPlan = () => {
     <div className="schedule-container">
       <div className="schedule-header">
         <h3 className="schedule-header-title">Workout Plans</h3>
-        {buttonAllow && (
+        {buttonAllow && !loading && (
           <button
             disabled={loading || genrateLoading}
             onClick={handleGenrateWorkout}
@@ -254,7 +254,12 @@ const WorkoutPlan = () => {
           );
         })
       ) : (
-        <p className="workout-empty">No workout generated yet.</p>
+        <p
+          className="workout-section"
+          style={{ textAlign: "center", marginTop: "70px" }}
+        >
+          No workout generated yet.
+        </p>
       )}
     </div>
   );

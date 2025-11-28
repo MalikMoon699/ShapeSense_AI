@@ -104,15 +104,6 @@ const Login = ({ setAcountState }) => {
           </span>
         </div>
 
-        <span
-          onClick={() => {
-            setAcountState("passwordForget");
-          }}
-          className="forgot-password"
-        >
-          Forgot Password?
-        </span>
-
         <button
           onClick={handleLogin}
           disabled={loading}
