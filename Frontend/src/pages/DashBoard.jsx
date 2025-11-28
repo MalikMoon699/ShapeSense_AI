@@ -105,7 +105,7 @@ const Dashboard = () => {
             <h3 className="card-title-2">My Schedule</h3>
             <span
               onClick={() => {
-                navigate("");
+                navigate(`/schedule/${currentUser?._id}`);
               }}
               className="view-all"
             >
@@ -135,7 +135,14 @@ const Dashboard = () => {
         <div className="card goals-card">
           <div className="card-header">
             <h3 className="card-title-2">Workout Plan</h3>
-            <span className="view-all">View All</span>
+            <span
+              className="view-all"
+              onClick={() => {
+                navigate(`/workout-plan/${currentUser?._id}`);
+              }}
+            >
+              View All
+            </span>
           </div>
           {loading ? (
             <Loader style={{ height: "200px" }} />
@@ -160,7 +167,14 @@ const Dashboard = () => {
         <div className="card goals-card">
           <div className="card-header">
             <h3 className="card-title-2">Achievements</h3>
-            <span className="view-all">View All</span>
+            <span
+              className="view-all"
+              onClick={() => {
+                navigate(`/achievements/${currentUser?._id}`);
+              }}
+            >
+              View All
+            </span>
           </div>
           {loading ? (
             <Loader style={{ height: "200px" }} />

@@ -89,18 +89,29 @@ const CustomTooltip = ({ active, payload, dailyStats }) => {
     return (
       <div
         style={{
-          background: "#1e293b",
+          background: "var(--backGroundColor)",
           padding: "10px 14px",
           borderRadius: 10,
-          color: "white",
-          border: "1px solid #334155",
+          color: "var(--textColor)",
+          border: "1px solid var(--borderColor)",
           width: "150px",
         }}
       >
-        <strong>{day}</strong>
-        <p>Total: {stats.total}</p>
-        <p>Pending: {stats.pending}</p>
-        <p>Completed: {stats.completed}</p>
+        <strong style={{ color: "var(--primaryColor)" }}>{day}</strong>
+        <p>
+          <strong style={{ color: "var(--primaryColorDark)" }}>Total:</strong>{" "}
+          {stats.total}
+        </p>
+        <p>
+          <strong style={{ color: "var(--primaryColorDark)" }}>Pending:</strong>{" "}
+          {stats.pending}
+        </p>
+        <p>
+          <strong style={{ color: "var(--primaryColorDark)" }}>
+            Completed:
+          </strong>{" "}
+          {stats.completed}
+        </p>
       </div>
     );
   }
@@ -114,12 +125,12 @@ const ActivityChart = ({ achievements, workoutData }) => {
   const dailyStats = getDailyStats(workoutData, achievements);
 
   return (
-    <div>
+    <div style={{paddingTop:"12px"}}>
       <ResponsiveContainer width="100%" height={200}>
         <BarChart data={chartData}>
           <XAxis
             dataKey="day"
-            tick={{ fill: "white" }}
+            tick={{ fill: "var(--textColor)" }}
             axisLine={false}
             tickLine={false}
           />
@@ -131,7 +142,7 @@ const ActivityChart = ({ achievements, workoutData }) => {
           <Bar
             dataKey="value"
             radius={[20, 20, 20, 20]}
-            barSize={40}
+            barSize={30}
             fill="var(--primaryColorDark)"
             onMouseEnter={(_, index) => setActiveIndex(index)}
             onMouseLeave={() => setActiveIndex(null)}
