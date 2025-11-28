@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 const AppLayout = () => {
   const { loading } = useAuth();
   const [acountState, setAcountState] = useState(null);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [currentSection, setCurrentSection] = useState("/");
 
   if (loading)

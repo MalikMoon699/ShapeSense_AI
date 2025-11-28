@@ -107,3 +107,102 @@ export const getTotalCalories = (text) => {
   const match = text.match(/Total Daily Calories:\s*(\d+)/i);
   return match ? match[1] : null;
 };
+
+export const parseWorkoutPlan = (planText) => {
+  const days = planText.split(
+    /(?=Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)/
+  );
+  const workoutPlan = {};
+
+  days.forEach((dayText) => {
+    dayText = dayText.trim();
+    if (!dayText) return;
+
+    const dayMatch = dayText.match(
+      /^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)/
+    );
+    if (!dayMatch) return;
+
+    const day = dayMatch[0];
+    workoutPlan[day] = {};
+
+    const subsectionRegex =
+      /(Warm-up|Main Workout|Cool Down|Total Estimated Calories):?/g;
+    const parts = dayText
+      .split(subsectionRegex)
+      .map((p) => p.trim())
+      .filter(Boolean);
+
+    for (let i = 1; i < parts.length; i += 2) {
+      const title = parts[i];
+      const content = parts[i + 1] || "";
+
+      const items = content
+        .split(/•|\n|-/)
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0);
+
+      workoutPlan[day][title] = items;
+    }
+  });
+
+  return workoutPlan;
+};
+
+export const formatDashBoardWorkouts = (workouts) => {
+  const goals = [];
+
+  workouts.forEach((workout) => {
+    const lines = workout.aiWorkout.split("\n").filter(Boolean);
+    let day = "";
+    let section = "";
+
+    lines.forEach((line) => {
+      if (
+        [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ].includes(line)
+      ) {
+        day = line;
+      } else if (!line.includes("—")) {
+        section = line;
+      } else {
+        goals.push({
+          at: `${day} | ${section}`,
+          value: line,
+          type: "Workout",
+        });
+      }
+    });
+  });
+
+  return goals;
+};
+
+export const formatDashBoardAchievements = (achievements) => {
+  return achievements.map((ach) => {
+    const [day, exercise] = ach.split("|");
+    return {
+      at: `${day} | Completed`,
+      value: exercise,
+      type: "Achievement",
+    };
+  });
+};
+
+export const formatDashBoardPlans = (plans) => {
+  return plans.flatMap((plan) => {
+    const lines = plan.data?.aiPlan?.split("\n").filter(Boolean) || [];
+    return lines.map((line) => ({
+      at: new Date(plan.createdAt).toDateString(),
+      value: line,
+      type: plan.type.charAt(0).toUpperCase() + plan.type.slice(1),
+    }));
+  });
+};

@@ -2,32 +2,6 @@
 import Plan from "../models/plan.model.js";
 import { generatePlan } from "./gemini.controller.js";
 
-// export const createPlan = async (req, res) => {
-//   try {
-//     const { type, data } = req.body;
-//     const userId = req.user.id;
-
-//     if (!type || !data) {
-//       return res.status(400).json({ message: "Type and data are required" });
-//     }
-
-//     const aiGeneratedPlan = await generatePlan(data.prompt || "");
-
-//     const plan = new Plan({
-//       userId,
-//       type,
-//       data: { ...data, aiPlan: aiGeneratedPlan },
-//     });
-
-//     await plan.save();
-//     res.status(201).json({ message: "Plan created successfully", plan });
-//   } catch (error) {
-//     console.error("Error creating plan:", error);
-//     res.status(500).json({ message: "Failed to create plan" });
-//   }
-// };
-
-
 export const createPlan = async (req, res) => {
   try {
     const { type, data } = req.body;
@@ -36,14 +10,8 @@ export const createPlan = async (req, res) => {
     if (!type || !data) {
       return res.status(400).json({ message: "Type and data are required" });
     }
-
-    // 1️⃣ Delete all existing plans of this user
     await Plan.deleteMany({ userId });
-
-    // 2️⃣ Generate AI plan
     const aiGeneratedPlan = await generatePlan(data.prompt || "");
-
-    // 3️⃣ Create new plan
     const plan = new Plan({
       userId,
       type,

@@ -5,7 +5,6 @@ import { Camera, ChevronLeft, ChevronRight } from "lucide-react";
 import Loader from "./Loader";
 import { IMAGES } from "../services/Constants.js";
 import { useAuth } from "../context/AuthContext.jsx";
-import { aiPrompt } from "../services/Helpers.js";
 
 const steps = ["Profile & Basic Info", "Physical Info", "Goals & Activity"];
 
@@ -15,7 +14,6 @@ const AddUserDetailsLeftSide = ({
   setUserData,
   imagePreview,
   setImagePreview,
-  setDietGenrateLoading,
 }) => {
   const { currentUser } = useAuth();
   const [step, setStep] = useState(0);
@@ -99,40 +97,11 @@ const AddUserDetailsLeftSide = ({
         headers: { "Content-Type": "multipart/form-data" },
       });
       toast.success("Profile updated successfully!");
-      handleAiDiet();
     } catch (error) {
       console.error("Error updating user:", error);
       toast.error("Failed to update profile");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const aiData = {
-    age: userData?.age,
-    height: userData?.height,
-    weight: userData?.weight,
-    gender: userData?.gender,
-    dietDay: currentUser?.dietDay || 1,
-    goal: userData?.goal,
-    activityLevel: userData?.activityLevel,
-  };
-
-  const handleAiDiet = async () => {
-    setDietGenrateLoading(true);
-    try {
-      await API.post("/plan/create-plan", {
-        type: "diet",
-        data: {
-          prompt: aiPrompt(aiData),
-        },
-      });
-      toast.success("Ai generated plans successfully!");
-    } catch (error) {
-      console.error("Error Ai generating plans:", error);
-      toast.error("Failed to Ai plans generating");
-    } finally {
-      setDietGenrateLoading(false);
     }
   };
 

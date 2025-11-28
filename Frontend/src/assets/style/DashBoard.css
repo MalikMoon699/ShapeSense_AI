@@ -78,6 +78,10 @@
   border-radius: 18px;
 }
 
+.recharts-responsive-container,
+.recharts-responsive-container * {
+  outline: none !important;
+}
 .card-title {
   font-size: 18px;
   font-weight: 600;

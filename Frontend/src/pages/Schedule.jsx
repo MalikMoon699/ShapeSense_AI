@@ -4,14 +4,16 @@ import { useAuth } from "../context/AuthContext";
 import UpdateDiet from "../components/UpdateDiet";
 import "../assets/style/Schedule.css";
 import { getTotalCalories, parseDietPlan } from "../components/FormatResponse";
+import Loader from "../components/Loader";
 
 const Schedule = () => {
   const { currentUser } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [isUpdateDiet, setIsUpdateDiet] = useState(false);
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
-    fetchPlans(setPlans);
+    fetchPlans(setLoading, setPlans);
   }, []);
 
   const updateAvailable =
@@ -26,12 +28,14 @@ const Schedule = () => {
   return (
     <div className="schedule-container">
       <div className="schedule-header">
-        <h3 className="schedule-header-title">Today Schedule</h3>
+        <h3 className="schedule-header-title">Today's Schedule</h3>
         <p className="schedule-header-cal">
-          <strong>Today Total Cal:</strong> {totalCalories}
+          <strong>Today Total Cal:</strong> {totalCalories || 0}
         </p>
       </div>
-      {plans.length === 0 ? (
+      {loading ? (
+        <Loader size="70" style={{ height: "70vh" }} />
+      ) : plans.length > 0 ? (
         plans.map((plan, index) => {
           const sections = parseDietPlan(plan.data?.aiPlan || "");
 
@@ -54,12 +58,17 @@ const Schedule = () => {
           );
         })
       ) : (
-        <div className="schedule-section" style={{textAlign:"center",marginTop:"100px"}}>Your Schedule Not Found.</div>
+        <div
+          className="schedule-section"
+          style={{ textAlign: "center", marginTop: "100px" }}
+        >
+          Your Schedule Not Found.
+        </div>
       )}
       {isUpdateDiet && (
         <UpdateDiet
           onClose={() => setIsUpdateDiet(false)}
-          ReFetch={() => fetchPlans(setPlans)}
+          ReFetch={() => fetchPlans(setLoading, setPlans)}
         />
       )}
     </div>

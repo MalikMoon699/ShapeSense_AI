@@ -6,6 +6,9 @@ import cors from "cors";
 import morgan from "morgan";
 import authRoutes from "./routes/auth.routes.js";
 import planRoutes from "./routes/plan.routes.js";
+import workoutRoutes from "./routes/workout.routes.js";
+import achievementRoutes from "./routes/achievement.routes.js";
+import chatRoutes from "./routes/chat.routes.js";
 import connectToDB from "./database/mongodb.js";
 
 const app = express();
@@ -19,6 +22,9 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/plan", planRoutes);
+app.use("/api/workout", workoutRoutes);
+app.use("/api/achievement", achievementRoutes);
+app.use("/api/chatBot", chatRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Server API");

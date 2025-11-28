@@ -20,22 +20,7 @@ const UserDetails = () => {
     varified: true,
   });
   const [imagePreview, setImagePreview] = useState(userData.profileImg || "");
-  const [dietGenrateLoading, setDietGenrateLoading] = useState(false);
 
-  if (dietGenrateLoading)
-    return (
-      <div className="diet-generating-container">
-        <div className="diet-generating-inner-container">
-          <Loader />
-          <div className="loader-text">
-            <p className="title">
-              AI is generating your personalized diet plan...
-            </p>
-            <p className="subtitle">This may take a few seconds. Sit tight!</p>
-          </div>
-        </div>
-      </div>
-    );
 
   return (
     <div className="user-details-container">
@@ -45,7 +30,6 @@ const UserDetails = () => {
         setUserData={setUserData}
         imagePreview={imagePreview}
         setImagePreview={setImagePreview}
-        setDietGenrateLoading={setDietGenrateLoading}
       />
       <AddUserDetailsRightSide
         userData={userData}

@@ -4,23 +4,45 @@ import { toast } from "sonner";
 import { IMAGES } from "../services/Constants";
 import { useAuth } from "../context/AuthContext";
 import "../assets/style/DashBoard.css";
-import { FormatResponse } from "../components/FormatResponse";
+import Loader from "../components/Loader";
 import {
-  activityData,
-  goalsData,
-  monthlyProgressData,
-  myScheduleData,
-  PeriodZone,
-} from "../services/DashboardServices";
-import { fetchPlans } from "../services/Helpers";
+  formatDashBoardAchievements,
+  formatDashBoardPlans,
+  formatDashBoardWorkouts,
+  FormatResponse,
+} from "../components/FormatResponse";
+import { PeriodZone } from "../services/DashboardServices";
+import {
+  fetchPlans,
+  fetchWorkout,
+  fetchAchievements,
+} from "../services/Helpers";
+import { useNavigate } from "react-router";
+import ActivityChart from "../components/ActivityBarChart";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [dumLoading, setDumLoading] = useState(true);
+  const [workouts, setWorkouts] = useState([]);
+  const [achievements, setAchievements] = useState([]);
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
-    fetchPlans(setPlans);
+    const loadData = async () => {
+      setLoading(true);
+      await fetchWorkout(setDumLoading, setWorkouts);
+      await fetchAchievements(setDumLoading, setAchievements);
+      await fetchPlans(setDumLoading, setPlans);
+      setLoading(false);
+    };
+    loadData();
   }, []);
+
+  const workoutData = formatDashBoardWorkouts(workouts);
+  const achievementData = formatDashBoardAchievements(achievements);
+  const scheduleData = formatDashBoardPlans(plans);
 
   return (
     <div className="dashboard-main-container">
@@ -68,68 +90,96 @@ const Dashboard = () => {
       <main className="dashboard-grid">
         <div className="card activity-card">
           <h3 className="card-title">Activity</h3>
-          <div className="activity-bars">
-            {activityData.map((item, index) => (
-              <div key={index} className="activity-item">
-                <div
-                  className={`bar ${item.day === "Fri" ? "active-bar" : ""}`}
-                ></div>
-                <span className="bar-label">{item.day}</span>
-              </div>
-            ))}
-          </div>
+          {loading ? (
+            <Loader style={{ height: "200px" }} />
+          ) : (
+            <ActivityChart
+              achievements={achievements}
+              workoutData={workoutData}
+            />
+          )}
         </div>
 
-        {/* Monthly Progress */}
-        <div className="card progress-card">
-          <h3 className="card-title">Monthly Progress</h3>
-
-          <div className="progress-circle">
-            <div className="inner-circle">
-              <span>{monthlyProgressData()}%</span>
-            </div>
-          </div>
-
-          <p className="progress-note">
-            You have achieved <b>{monthlyProgressData()}%</b> of your goal this
-            month
-          </p>
-        </div>
-
-        {/* Goals */}
-        <div className="card goals-card">
-          <div className="card-header">
-            <h3 className="card-title-2">Goals</h3>
-            <span className="view-all">View All</span>
-          </div>
-
-          {goalsData.map((g, i) => (
-            <div key={i} className="goal-row">
-              <div className="goal-info">
-                <h4>{g.type}</h4>
-                <span>{g.at}</span>
-              </div>
-              <span className="goal-value">{g.value}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Schedule */}
         <div className="card schedule-card">
           <div className="card-header">
             <h3 className="card-title-2">My Schedule</h3>
+            <span
+              onClick={() => {
+                navigate("");
+              }}
+              className="view-all"
+            >
+              View All
+            </span>
+          </div>
+          {loading ? (
+            <Loader style={{ height: "200px" }} />
+          ) : scheduleData.length === 0 ? (
+            <p className="no-data">No schedule to show</p>
+          ) : (
+            (scheduleData.length > 3
+              ? scheduleData.slice(1, 3)
+              : scheduleData
+            ).map((s, i) => (
+              <div key={i} className="schedule-row">
+                <div className="schedule-info">
+                  <h4>{s.type}</h4>
+                  <span>{s.at}</span>
+                </div>
+                <span className="schedule-value">{s.value}</span>
+              </div>
+            ))
+          )}
+        </div>
+
+        <div className="card goals-card">
+          <div className="card-header">
+            <h3 className="card-title-2">Workout Plan</h3>
             <span className="view-all">View All</span>
           </div>
-
-          {myScheduleData.map((s, i) => (
-            <div key={i} className="schedule-row">
-              <div className="schedule-info">
-                <h4>{s.type}</h4>
-                <span>{s.at}</span>
+          {loading ? (
+            <Loader style={{ height: "200px" }} />
+          ) : workoutData.length === 0 ? (
+            <p className="no-data">No workouts to show</p>
+          ) : (
+            (workoutData.length > 3
+              ? workoutData.slice(1, 3)
+              : workoutData
+            ).map((g, i) => (
+              <div key={i} className="goal-row">
+                <div className="goal-info">
+                  <h4>{g.type}</h4>
+                  <span>{g.at}</span>
+                </div>
+                <span className="goal-value">{g.value}</span>
               </div>
-              <span className="schedule-value">{s.value}</span>
-            </div>
-          ))}
+            ))
+          )}
+        </div>
+
+        <div className="card goals-card">
+          <div className="card-header">
+            <h3 className="card-title-2">Achievements</h3>
+            <span className="view-all">View All</span>
+          </div>
+          {loading ? (
+            <Loader style={{ height: "200px" }} />
+          ) : achievementData.length === 0 ? (
+            <p className="no-data">No achievements yet</p>
+          ) : (
+            (achievementData.length > 3
+              ? achievementData.slice(1, 3)
+              : achievementData
+            ).map((g, i) => (
+              <div key={i} className="goal-row">
+                <div className="goal-info">
+                  <h4>{g.type}</h4>
+                  <span>{g.at}</span>
+                </div>
+                <span className="goal-value">{g.value}</span>
+              </div>
+            ))
+          )}
         </div>
       </main>
     </div>

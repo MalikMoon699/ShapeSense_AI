@@ -1,0 +1,98 @@
+.workout-plans-genrate-btn {
+  background: var(--cardColor);
+  color: var(--primaryColor);
+  cursor: pointer;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.workout-plans-genrate-btn:hover {
+  border-right: 3px solid var(--primaryColor);
+}
+
+.workout-plan-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.workout-day-card {
+  position: relative;
+  width: 100%;
+  background: var(--cardColor);
+  border: 1px solid var(--borderColor);
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px var(--boxShadowColor);
+  padding: 10px 10px;
+  overflow: hidden;
+}
+
+.workout-day-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  color: var(--primaryColorDark);
+}
+
+.workout-day-header-arrow {
+  font-size: 0px;
+}
+
+.workout-section {
+  position: relative;
+  width: 100%;
+  background: var(--backGroundColor);
+  border: 1px solid var(--borderColor);
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px var(--boxShadowColor);
+  padding: 10px 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.workout-section-title {
+  color: var(--primaryColor);
+}
+
+.workout-exercise-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 5px 3px;
+}
+
+.workout-exercise-item {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--cardColor);
+  border-radius: 10px;
+  font-size: 15px;
+  border: 1px solid var(--borderColor);
+  color: var(--textColor);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.workout-exercise-item.active {
+  border-left: 5px solid var(--primaryColor);
+}
+.workout-exercise-item:hover {
+  transform: translate(0px, -1.5px);
+}
+
+.progressbar {
+  position: absolute;
+  width: 0px;
+  height: 4px;
+  background-color: var(--primaryColor);
+  top: 0px;
+  left: 0px;
+  transition: all 0.3s ease-in-out;
+}

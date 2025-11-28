@@ -16,12 +16,12 @@ const TopBar = ({ darkMode, setDarkMode, setAcountState, currentSection }) => {
 
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
-    if (savedMode === "true") {
-      setDarkMode(true);
-      document.documentElement.setAttribute("data-theme", "dark");
-    } else {
+    if (savedMode === "false") {
       setDarkMode(false);
       document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      setDarkMode(true);
+      document.documentElement.setAttribute("data-theme", "dark");
     }
   }, []);
 
