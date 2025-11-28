@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../assets/style/Chatbot.css";
 import { SendHorizontal } from "lucide-react";
 import API from "../utils/api";
@@ -26,6 +26,25 @@ const Chatbot = () => {
   const [workouts, setWorkouts] = useState([]);
   const [achievements, setAchievements] = useState([]);
   const [plans, setPlans] = useState([]);
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    sessionStorage.setItem("chatMessages", JSON.stringify(messages));
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("chatMessages", JSON.stringify(messages));
+  }, [messages]);
+
+  useEffect(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
+  }, [loading]);
+
+  useEffect(() => {
+    if (!loading) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, responseloading]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -37,14 +56,6 @@ const Chatbot = () => {
     };
     loadData();
   }, []);
-
-  useEffect(() => {
-    sessionStorage.setItem("chatMessages", JSON.stringify(messages));
-  }, []);
-
-  useEffect(() => {
-    sessionStorage.setItem("chatMessages", JSON.stringify(messages));
-  }, [messages]);
 
   const aiData = {
     currentUser,
@@ -103,6 +114,7 @@ const Chatbot = () => {
             <Loader size="20" />
           </div>
         )}
+        <div ref={messagesEndRef}></div>
       </div>
 
       <div className="chat-bot-here-input-section">

@@ -126,6 +126,8 @@ Continue this format for all days (Wednesday → Sunday).
 `;
 };
 
+const today = new Date();
+
 export const chatBotPrompt = ({
   currentUser,
   workoutPlans,
@@ -149,6 +151,7 @@ USER DATA:
 - Workout Plans: ${JSON.stringify(workoutPlans)}
 - Achievements: ${JSON.stringify(achievements)}
 - Schedule: ${JSON.stringify(schedule)}
+- Date Details: ${today}
 
 USER QUESTION: ${userMessage}
 
@@ -160,7 +163,6 @@ RESPONSE RULES:
 5. Use bullets for lists.
 `;
 };
-
 
 export const useGoBack = () => {
   const navigate = useNavigate();
