@@ -19,7 +19,7 @@ import { IMAGES } from "../services/Constants";
 
 const UserSidebar = ({ setDarkMode, darkMode }) => {
   const { currentUser, logout } = useAuth();
-  const [isSidebar, setIssidebar] = useState(true);
+  const [isSidebar, setIssidebar] = useState(false);
   const navigate = useNavigate();
 
   const isActiveRoute = (route) => {
@@ -32,14 +32,10 @@ const UserSidebar = ({ setDarkMode, darkMode }) => {
         onClick={() => {
           setIssidebar(!isSidebar);
         }}
-        style={{ left: isSidebar? "259px":"0px" }}
+        style={{ left: isSidebar ? "259px" : "0px" }}
         className="sidebar-switch-btn icon"
       >
-          {isSidebar ? (
-            <ChevronLeft color="white" />
-          ) : (
-            <ChevronRight color="white" />
-          )}
+        {isSidebar ? <ChevronLeft /> : <ChevronRight />}
       </span>
       <div
         className={`user-sidebar-container user-sidebar-container-${
@@ -84,6 +80,7 @@ const UserSidebar = ({ setDarkMode, darkMode }) => {
               }`}
               onClick={() => {
                 navigate(`/dashboard/${currentUser?._id}`);
+                setIssidebar(false);
               }}
             >
               <span className="user-sidebar-icon icon">
@@ -97,6 +94,7 @@ const UserSidebar = ({ setDarkMode, darkMode }) => {
               }`}
               onClick={() => {
                 navigate(`/schedule/${currentUser?._id}`);
+                setIssidebar(false);
               }}
             >
               <span className="user-sidebar-icon icon">
@@ -111,6 +109,7 @@ const UserSidebar = ({ setDarkMode, darkMode }) => {
               }`}
               onClick={() => {
                 navigate(`/workout-plan/${currentUser?._id}`);
+                setIssidebar(false);
               }}
             >
               <span className="user-sidebar-icon">
@@ -126,6 +125,7 @@ const UserSidebar = ({ setDarkMode, darkMode }) => {
               }`}
               onClick={() => {
                 navigate(`/achievements/${currentUser?._id}`);
+                setIssidebar(false);
               }}
             >
               <span className="user-sidebar-icon">
@@ -141,6 +141,7 @@ const UserSidebar = ({ setDarkMode, darkMode }) => {
               }`}
               onClick={() => {
                 navigate("/chatbot");
+                setIssidebar(false);
               }}
             >
               <span className="user-sidebar-icon">
