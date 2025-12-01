@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/style/UserSidebar.css";
 import {
   Bot,
   ChevronLeft,
+  ChevronRight,
   ClipboardClock,
   Dumbbell,
   LayoutDashboard,
@@ -18,6 +19,7 @@ import { IMAGES } from "../services/Constants";
 
 const UserSidebar = ({ setDarkMode, darkMode }) => {
   const { currentUser, logout } = useAuth();
+  const [isSidebar, setIssidebar] = useState(true);
   const navigate = useNavigate();
 
   const isActiveRoute = (route) => {
@@ -25,120 +27,139 @@ const UserSidebar = ({ setDarkMode, darkMode }) => {
   };
 
   return (
-    <div className="user-sidebar-container">
-      <div className="user-sidebar-content">
-        <div className="user-sidebar-header">
-          <div>
-            <div className="user-sidebar-logo">
-              <img src={IMAGES.siteLogo} alt="" />
+    <div>
+      <span
+        onClick={() => {
+          setIssidebar(!isSidebar);
+        }}
+        style={{ left: isSidebar? "259px":"0px" }}
+        className="sidebar-switch-btn icon"
+      >
+          {isSidebar ? (
+            <ChevronLeft color="white" />
+          ) : (
+            <ChevronRight color="white" />
+          )}
+      </span>
+      <div
+        className={`user-sidebar-container user-sidebar-container-${
+          isSidebar ? "open" : "close"
+        }`}
+      >
+        <div className="user-sidebar-content">
+          <div className="user-sidebar-header">
+            <div>
+              <div className="user-sidebar-logo">
+                <img src={IMAGES.siteLogo} alt="" />
+              </div>
+              <h2 className="user-sidebar-title">ShapeSense</h2>
             </div>
-            <h2 className="user-sidebar-title">ShapeSense</h2>
+            <div>
+              <button
+                onClick={() => {
+                  navigate("/");
+                }}
+                className="topbar-left-back-btn"
+              >
+                <span className="icon">
+                  <ChevronLeft />
+                </span>
+              </button>
+              <button
+                style={{ marginTop: "4px", display: "flex" }}
+                onClick={() => {
+                  setDarkMode(!darkMode);
+                }}
+                className="topbar-left-back-btn topbar-menu-btn"
+              >
+                <span className="icon">{darkMode ? <Sun /> : <Moon />}</span>
+              </button>
+            </div>
           </div>
-          <div>
-            <button
+
+          <ul className="user-sidebar-menu">
+            <li
+              className={`user-sidebar-item ${
+                isActiveRoute(`/dashboard`) ? "active" : ""
+              }`}
               onClick={() => {
-                navigate("/");
+                navigate(`/dashboard/${currentUser?._id}`);
               }}
-              className="topbar-left-back-btn"
             >
-              <span className="icon">
-                <ChevronLeft />
+              <span className="user-sidebar-icon icon">
+                <LayoutDashboard />
               </span>
-            </button>
-            <button
-              style={{ marginTop: "4px", display: "flex" }}
+              Dashboard
+            </li>
+            <li
+              className={`user-sidebar-item ${
+                isActiveRoute(`/schedule`) ? "active" : ""
+              }`}
               onClick={() => {
-                setDarkMode(!darkMode);
+                navigate(`/schedule/${currentUser?._id}`);
               }}
-              className="topbar-left-back-btn topbar-menu-btn"
             >
-              <span className="icon">{darkMode ? <Sun /> : <Moon />}</span>
-            </button>
-          </div>
+              <span className="user-sidebar-icon icon">
+                <ClipboardClock />
+              </span>
+              Schedule
+            </li>
+
+            <li
+              className={`user-sidebar-item ${
+                isActiveRoute(`/workout-plan`) ? "active" : ""
+              }`}
+              onClick={() => {
+                navigate(`/workout-plan/${currentUser?._id}`);
+              }}
+            >
+              <span className="user-sidebar-icon">
+                <span className="user-sidebar-icon icon">
+                  <Dumbbell />
+                </span>
+              </span>
+              Workout Plan
+            </li>
+            <li
+              className={`user-sidebar-item ${
+                isActiveRoute(`/achievements`) ? "active" : ""
+              }`}
+              onClick={() => {
+                navigate(`/achievements/${currentUser?._id}`);
+              }}
+            >
+              <span className="user-sidebar-icon">
+                <span className="user-sidebar-icon icon">
+                  <Trophy />
+                </span>
+              </span>
+              Achievements
+            </li>
+            <li
+              className={`user-sidebar-item ${
+                isActiveRoute(`/chatbot`) ? "active" : ""
+              }`}
+              onClick={() => {
+                navigate("/chatbot");
+              }}
+            >
+              <span className="user-sidebar-icon">
+                <span className="user-sidebar-icon icon">
+                  <Bot />
+                </span>
+              </span>
+              Ask any Question
+            </li>
+          </ul>
         </div>
-
-        <ul className="user-sidebar-menu">
-          <li
-            className={`user-sidebar-item ${
-              isActiveRoute(`/dashboard`) ? "active" : ""
-            }`}
-            onClick={() => {
-              navigate(`/dashboard/${currentUser?._id}`);
-            }}
-          >
-            <span className="user-sidebar-icon icon">
-              <LayoutDashboard />
+        <div className="user-sidebar-footer">
+          <button onClick={logout}>
+            Logout
+            <span className="icon">
+              <LogOut />
             </span>
-            Dashboard
-          </li>
-          <li
-            className={`user-sidebar-item ${
-              isActiveRoute(`/schedule`) ? "active" : ""
-            }`}
-            onClick={() => {
-              navigate(`/schedule/${currentUser?._id}`);
-            }}
-          >
-            <span className="user-sidebar-icon icon">
-              <ClipboardClock />
-            </span>
-            Schedule
-          </li>
-
-          <li
-            className={`user-sidebar-item ${
-              isActiveRoute(`/workout-plan`) ? "active" : ""
-            }`}
-            onClick={() => {
-              navigate(`/workout-plan/${currentUser?._id}`);
-            }}
-          >
-            <span className="user-sidebar-icon">
-              <span className="user-sidebar-icon icon">
-                <Dumbbell />
-              </span>
-            </span>
-            Workout Plan
-          </li>
-          <li
-            className={`user-sidebar-item ${
-              isActiveRoute(`/achievements`) ? "active" : ""
-            }`}
-            onClick={() => {
-              navigate(`/achievements/${currentUser?._id}`);
-            }}
-          >
-            <span className="user-sidebar-icon">
-              <span className="user-sidebar-icon icon">
-                <Trophy />
-              </span>
-            </span>
-            Achievements
-          </li>
-          <li
-            className={`user-sidebar-item ${
-              isActiveRoute(`/chatbot`) ? "active" : ""
-            }`}
-            onClick={() => {
-              navigate("/chatbot");
-            }}
-          >
-            <span className="user-sidebar-icon">
-              <span className="user-sidebar-icon icon">
-                <Bot />
-              </span>
-            </span>
-            Ask any Question
-          </li>
-        </ul>
-      </div>
-      <div className="user-sidebar-footer">
-        <button onClick={logout}>
-          Logout
-          <span className="icon">
-            <LogOut />
-          </span>
-        </button>
+          </button>
+        </div>
       </div>
     </div>
   );

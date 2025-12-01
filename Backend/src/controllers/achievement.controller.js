@@ -41,3 +41,12 @@ export const deleteAchievement = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const clearAchievements = async (req, res) => {
+  try {
+    await Achievement.deleteMany({ userId: req.user.id });
+    res.status(200).json({ success: true, message: "Achievements cleared" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

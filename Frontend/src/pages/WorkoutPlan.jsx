@@ -103,12 +103,32 @@ const WorkoutPlan = () => {
     activityLevel: currentUser?.activityLevel,
   };
 
+  // const handleGenrateWorkout = async () => {
+  //   setGenrateLoading(true);
+  //   try {
+  //     await API.post("/workout/create-workout", {
+  //       data: { prompt: workoutAiPrompt(aiData) },
+  //     });
+  //     fetchWorkout(setLoading, setWorkouts);
+  //     toast.success("AI generated today's workout plan!");
+  //   } catch (error) {
+  //     console.error("Error generating today's workout plan:", error);
+  //     toast.error("Failed to generate today's workout plan");
+  //   } finally {
+  //     setGenrateLoading(false);
+  //   }
+  // };
+
   const handleGenrateWorkout = async () => {
     setGenrateLoading(true);
+
     try {
+      await API.delete("/achievement/clear");
+      setAchievements([]);
       await API.post("/workout/create-workout", {
         data: { prompt: workoutAiPrompt(aiData) },
       });
+
       fetchWorkout(setLoading, setWorkouts);
       toast.success("AI generated today's workout plan!");
     } catch (error) {

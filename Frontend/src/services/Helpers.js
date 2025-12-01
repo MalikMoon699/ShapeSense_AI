@@ -216,21 +216,23 @@ export const fetchAchievements = async (setLoading, setAchievements) => {
 export const buttonAvalibale = (workouts) => {
   let buttonAvailable = false;
 
-  if (workouts.length === 0) {
-    return (buttonAvailable = true);
+  if (!workouts || workouts.length === 0) {
+    return true;
   }
 
-  const lastWorkoutDateStr = workouts[0]?.date;
-  if (lastWorkoutDateStr) {
-    const lastWorkoutDate = new Date(lastWorkoutDateStr);
-    const today = new Date();
+  const today = new Date();
+  const day = today.getDay();
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  const monday = new Date(today);
+  monday.setDate(today.getDate() + diffToMonday);
+  monday.setHours(0, 0, 0, 0);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  sunday.setHours(23, 59, 59, 999);
+  const hasWorkoutThisWeek = workouts.some((w) => {
+    const wDate = new Date(w.date);
+    return wDate >= monday && wDate <= sunday;
+  });
 
-    const diffTime = today - lastWorkoutDate;
-    const diffDays = diffTime / (1000 * 60 * 60 * 24);
-
-    if (diffDays >= 8) {
-      buttonAvailable = true;
-    }
-  }
-  return buttonAvailable;
+  return !hasWorkoutThisWeek;
 };

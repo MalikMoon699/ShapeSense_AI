@@ -11,7 +11,8 @@
   flex-direction: column;
   align-items: start;
   justify-content: space-between;
-  overflow: auto;
+  overflow-y: auto;
+  z-index: 100;
 }
 
 .user-sidebar-content {
@@ -129,4 +130,34 @@
 }
 .user-sidebar-footer > button:hover {
   gap: 5px;
+}
+
+.sidebar-switch-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .users-main-container {
+    margin-left: 0px;
+  }
+  .user-sidebar-container-close {
+    left: -260px;
+  }
+  .user-sidebar-container-open {
+    left: 0px;
+  }
+
+  .sidebar-switch-btn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 45px;
+    border: 1px solid var(--borderColorFocus);
+    background-color: var(--TopbarBackGroundColor);
+    top: 50%;
+    z-index: 1000;
+    border-radius: 0px 4px 4px 0px;
+  }
 }
