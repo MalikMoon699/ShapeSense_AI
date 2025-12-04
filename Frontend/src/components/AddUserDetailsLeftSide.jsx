@@ -5,6 +5,7 @@ import { Camera, ChevronLeft, ChevronRight } from "lucide-react";
 import Loader from "./Loader";
 import { IMAGES } from "../services/Constants.js";
 import { useAuth } from "../context/AuthContext.jsx";
+import { useNavigate } from "react-router";
 
 const steps = ["Profile & Basic Info", "Physical Info", "Goals & Activity"];
 
@@ -15,6 +16,7 @@ const AddUserDetailsLeftSide = ({
   imagePreview,
   setImagePreview,
 }) => {
+  const navigate = useNavigate();
   const { currentUser } = useAuth();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -96,6 +98,7 @@ const AddUserDetailsLeftSide = ({
       await API.put(`/auth/updateUser/${currentUser._id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      navigate("/");
       toast.success("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating user:", error);
