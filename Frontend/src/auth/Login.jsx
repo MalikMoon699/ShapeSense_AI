@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import Loader from "../components/Loader";
 import { toast } from "sonner";
 import API from "../utils/api";
+import { startAuthentication } from "@simplewebauthn/browser";
 
 const Login = ({ setAcountState }) => {
   const navigate = useNavigate();
@@ -37,6 +38,29 @@ const Login = ({ setAcountState }) => {
       toast.error("Login failed");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handlePasskeyLogin = async () => {
+    const email = form.email;
+
+    if (!email) return toast.error("Enter email first");
+
+    const opts = await API.get(`/passkey/login-options?email=${email}`);
+
+    try {
+      const authResp = await startAuthentication(opts.data);
+
+      const verify = await API.post("/passkey/login-verify", authResp);
+
+      if (verify.data.token) {
+        localStorage.setItem("token", verify.data.token);
+        await refresh();
+        navigate("/");
+        toast.success("Logged in with Passkey");
+      }
+    } catch (err) {
+      toast.error("No biometrics/passcode available");
     }
   };
 
@@ -103,6 +127,9 @@ const Login = ({ setAcountState }) => {
             {showPassword ? <Eye size={18} /> : <EyeClosed size={18} />}
           </span>
         </div>
+        <button style={{marginBottom:"8px"}} onClick={handlePasskeyLogin} className="login-btn">
+          Login with Passkey
+        </button>
 
         <button
           onClick={handleLogin}
