@@ -71,7 +71,7 @@ const App = () => {
             }
           />
           <Route
-            path="/chatbot"
+            path="/coach"
             element={
               <ProtectedRoute allowedTypes={["verified"]}>
                 <Chatbot />

@@ -137,10 +137,10 @@ const UserSidebar = ({ setDarkMode, darkMode }) => {
             </li>
             <li
               className={`user-sidebar-item ${
-                isActiveRoute(`/chatbot`) ? "active" : ""
+                isActiveRoute(`/coach`) ? "active" : ""
               }`}
               onClick={() => {
-                navigate("/chatbot");
+                navigate("/coach");
                 setIssidebar(false);
               }}
             >
